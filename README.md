@@ -9,9 +9,7 @@ styles and paradigms of programming, such as declarative,
 constraint logic, (tacit) function-level, symbolic, functional,
 object-based, imperative, generic, procedural, etc.
 
-> All programming languages are write-only.
-
-Chuck Moore
+> All programming languages are write-only. - Chuck Moore
 
 ## Euler
 
