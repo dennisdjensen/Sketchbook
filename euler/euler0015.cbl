@@ -7,6 +7,8 @@
       *   In a grid from (0, 0) to (a, b) the number of lattice paths
       *   are the binomial coefficient (a+b)Ca.
       *   nCk = n!/(n-k)!k!
+      *   This is of course related to the Pascal pyramid, which
+      *   can almost directly be seen in a lattice.
       *   There is a simpler algorithm for computing it, but
       *   I chose to eliminate manually the common factors.
       *   For 20x20 grid this becomes 40C20
