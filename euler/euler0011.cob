@@ -60,7 +60,7 @@
                perform varying grid-cur-col from 1 by 1
                        until grid-cur-col > grid-max-col - 4 + 1
 diag /*            Diagonal / upwards.
-                   if grid-cur-row >= 4 and grid-cur-col >= 4
+                   if grid-cur-row >= 4
                        perform varying i from 0 by 1 until i > 3
                            move grid-cell(grid-cur-row - i,
                                           grid-cur-col + i)
