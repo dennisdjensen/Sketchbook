@@ -3,7 +3,7 @@
 Sketchbook of various programs such as puzzles, spikes, toys,
 tests, trials, or just plain fun.
 
-After learning more than around 2 different programming languages
+After learning more than around 30 different programming languages
 I stopped counting, and long before that it became about knowing
 styles and paradigms of programming, such as declarative,
 constraint logic, (tacit) function-level, symbolic, functional,
