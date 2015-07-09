@@ -1,6 +1,6 @@
       * Author: Dennis Decker Jensen
       * Date: 5 July 2015
-      * Purpose: The digit sum of 2 ** 1000
+      * Purpose: The digit sum of factorial 100. A copy of euler0016.
       * Tectonics: cobc -x euler0016.cob
        identification division.
        program-id. euler0016.
@@ -9,7 +9,7 @@
        input-output section.
        file-control.
            select digit-input
-               assign to "power-digits.txt"
+               assign to "factorial-digits.txt"
                organization is sequential.
       ******************************************************************
        data division.
@@ -30,12 +30,12 @@
 
        calculate-digits.
            call "SYSTEM"
-               using "dc -e '2 1000 ^ p' " &
+               using "dc -e '[d1-d1<!*]s! 100l!xp' " &
                      "| sed -e 's/[^0-9]//g' " &
-                     "| tr -d '\n' > power-digits.txt"
+                     "| tr -d '\n' > factorial-digits.txt"
                returning command-status.
            if command-status not equal zero
-               display "Failed to run calculation of power digits."
+               display "Failed to run calculation of factorial digits."
                stop run.
 
        read-digits.
@@ -44,8 +44,6 @@
            close digit-input.
 
        digit-summation.
-      *    display "Power digits:".
-      *    display input-rec.
            perform varying i from 1 by 1
                    until input-rec(i:1) = space or i > 9000
                move input-rec(i:1) to digit
@@ -56,5 +54,5 @@
            display "Digit sum: " digit-sum.
 
        clean-up.
-           call "CBL_DELETE_FILE" using "power-digits.txt".
+           call "CBL_DELETE_FILE" using "factorial-digits.txt".
        end program euler0016.
