@@ -10,8 +10,9 @@ BEGIN {
         len = length(word)
         if (len < maxlen) next
         for (i = 1; i <= len - 1; ++i)
-                if (substr(word, i, 1) < substr(word, i + 1, 1))
-                        maxlen = length(max = word)
+                if (substr(word, i, 1) > substr(word, i + 1, 1))
+                        next
+        maxlen = length(max = word)
 }
 END {
         printf("Largest word '%s' is %d characters long\n", max, maxlen)
