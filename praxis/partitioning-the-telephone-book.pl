@@ -50,35 +50,17 @@ partition(Phone,A,B,C,Score) :-
 	cumulative(Phone,Phone_cum),
 	nth(26,Phone_cum,Last),
 	Target is Last div 4,
+	fd_set_vector_max(Last), % To enable enough solutions
 	fd_domain([A,B,C],1,26),
-	B #> A, C #> B,
-	fd_minimize(score(Phone_cum,Last,Target,A,B,C,Score), Score).
-
-% Minimization goal (with different heuristics)
-score(Phone_cum,Last,Target,A,B,C,Score) :-
-	%fd_labelingff([A,B,C]),
-	%fd_labeling([A,B,C],[value_method(middle)]),
-	%fd_labeling([A,B,C],[value_method(max)]),
-	%fd_labeling([A,B,C],[value_method(bisect)]),
-	%fd_labeling([A,B,C],[value_method(min)]),
-	%fd_labeling([A,B,C],[value_method(bounds)]),
-	%fd_labeling([A,B,C],[value_method(random)]),
-	%fd_labeling([A,B,C],[variable_method(most_constrained)]),
-	%fd_labeling([A,B,C],[variable_method(smallest)]),
-	%fd_labeling([A,B,C],[variable_method(largest)]),
-	%fd_labeling([A,B,C],[variable_method(max_regret)]),
-	%fd_labeling([A,B,C],[variable_method(random)]),
-	%fd_labeling([A,B,C],[reorder(false)]),
-	fd_labeling([A,B,C]),
-	nth(A,Phone_cum,X),
-	nth(B,Phone_cum,Y),
-	nth(C,Phone_cum,Z),
-	%format(`X=%d Y=%d Z=%d~n`,[X,Y,Z]),
-	Score is abs(X-Target)
-		+ abs(Y-X-Target)
-		+ abs(Z-Y-Target)
-		+ abs(Last-Z-Target).
-	%format(`Score=%d~n`,[Score]).
+	fd_all_different([A,B,C]),
+	fd_element(A,Phone_cum,X),
+	fd_element(B,Phone_cum,Y),
+	fd_element(C,Phone_cum,Z),
+	Score #= dist(X,Target)
+		+ dist(dist(Y,X),Target)
+		+ dist(dist(Z,Y),Target)
+		+ dist(dist(Last,Z),Target),
+	fd_minimize(fd_labeling([A,B,C,X,Y,Z,Score]), Score).
 
 show(A,B,C,Score) :-
 	format(`Score = %d: A-%c, %c-%c, %c-%c, %c-Z~n`,
@@ -97,13 +79,11 @@ go :-
 
 :- initialization(go).
 
-% 8041 bytes written, 6 ms
+% 7791 bytes written, 6 ms
 % Score = 22: A-C, D-J, K-P, Q-Z
 % Score = 22: A-C, D-J, K-O, P-Z
 % | ?- 
 
-% Branch-and-bound didn't find the minimal solution with score = 18
-% That surprises me. I would have expected the value_method(middle)
-% to find it, since it works from the middle towards the bounds.
-% None of the heuristics differed in any way from the default labelling.
+% The branch-and-bound algorithm cannot find the optimal solution
+% with a score = 18, too bad.
 
