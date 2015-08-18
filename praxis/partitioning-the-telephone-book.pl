@@ -32,8 +32,8 @@
 % discuss the exercise in the comments below.
 
 % A phone book with this many names and phones per letter
-phone_weights([17, 5,18,11,16, 5, 5, 7, 8,15,10,18,28,
-                7, 2,10, 1,13,21, 9, 1, 4, 5, 1, 4, 5]).
+phone_weights([16, 4,17,10,15, 4, 4, 6, 7,14, 9,17,27,
+                6, 1, 9, 0,12,20, 8, 0, 3, 4, 0, 3, 4]).
 
 % Scan sum of number list (like +\ in J)
 cumulative(Ns0,Ns1) :-
@@ -44,21 +44,17 @@ cumulative([X|Xs],Acc,[Y|Ys]) :-
 	Y is Acc + X,
 	cumulative(Xs,Y,Ys).
 
-scale(_,[],[]).
-scale(K,[N|Ns],[M|Ms]) :-
-	M is floor(N * 10 ** K),
-	scale(K,Ns,Ms).
-
 % Find optimal partition by branch-and-bound algorithm with restart.
 % This finds multiple solutions, if there are any.
-% Since CLP only works on integers, we have to scale,
+% Since CLP only works on integers, we may have to scale,
 % otherwise we might not find the optimal solution.
+% This is not needed for this problem, though.
 partition(Phone,A,B,C,Score) :-
 	cumulative(Phone,Phone_cum0),
-	scale(1,Phone_cum0,Phone_cum),
+	Phone_cum = Phone_cum0,
+	%scale(1,Phone_cum0,Phone_cum),
 	nth(26,Phone_cum,Last),
-	%Target is 63, % Finds optimal solution
-	Target is floor(Last / 4), % =:= 61 without floor
+	Target is floor(Last / 4), % floor for scale
 	fd_set_vector_max(Last), % To enable enough solutions
 	fd_domain([A,B,C],1,26),
 	fd_all_different([A,B,C]),
@@ -89,12 +85,8 @@ go :-
 
 :- initialization(go).
 
-% 7791 bytes written, 6 ms
-% Score = 22: A-C, D-J, K-P, Q-Z
-% Score = 22: A-C, D-J, K-O, P-Z
+% - 7887 bytes written, 5 ms
+% Score = 18: A-C, D-J, K-O, P-Z
+% Score = 18: A-C, D-J, K-P, Q-Z
 % | ?- 
-
-% Because of Target is Last / 4, we need to scale the numbers,
-% otherwise the branch-and-bound algorithm cannot
-% find the optimal solution.
 
