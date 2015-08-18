@@ -58,7 +58,7 @@ partition(Phone,A,B,C,Score) :-
 	scale(1,Phone_cum0,Phone_cum),
 	nth(26,Phone_cum,Last),
 	%Target is 63, % Finds optimal solution
-	Target is floor(Last / 4), % =:= 61
+	Target is floor(Last / 4), % =:= 61 without floor
 	fd_set_vector_max(Last), % To enable enough solutions
 	fd_domain([A,B,C],1,26),
 	fd_all_different([A,B,C]),
@@ -94,6 +94,7 @@ go :-
 % Score = 22: A-C, D-J, K-O, P-Z
 % | ?- 
 
-% The branch-and-bound algorithm cannot find the optimal solution
-% with a score = 18, too bad.
+% Because of Target is Last / 4, we need to scale the numbers,
+% otherwise the branch-and-bound algorithm cannot
+% find the optimal solution.
 
