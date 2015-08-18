@@ -52,9 +52,8 @@ cumulative([X|Xs],Acc,[Y|Ys]) :-
 partition(Phone,A,B,C,Score) :-
 	cumulative(Phone,Phone_cum0),
 	Phone_cum = Phone_cum0,
-	%scale(1,Phone_cum0,Phone_cum),
 	nth(26,Phone_cum,Last),
-	Target is floor(Last / 4), % floor for scale
+	Target is Last div 4,
 	fd_set_vector_max(Last), % To enable enough solutions
 	fd_domain([A,B,C],1,26),
 	fd_all_different([A,B,C]),
