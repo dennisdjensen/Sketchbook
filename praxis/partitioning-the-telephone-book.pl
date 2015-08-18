@@ -44,13 +44,21 @@ cumulative([X|Xs],Acc,[Y|Ys]) :-
 	Y is Acc + X,
 	cumulative(Xs,Y,Ys).
 
+scale(_,[],[]).
+scale(K,[N|Ns],[M|Ms]) :-
+	M is floor(N * 10 ** K),
+	scale(K,Ns,Ms).
+
 % Find optimal partition by branch-and-bound algorithm with restart.
 % This finds multiple solutions, if there are any.
+% Since CLP only works on integers, we have to scale,
+% otherwise we might not find the optimal solution.
 partition(Phone,A,B,C,Score) :-
-	cumulative(Phone,Phone_cum),
+	cumulative(Phone,Phone_cum0),
+	scale(1,Phone_cum0,Phone_cum),
 	nth(26,Phone_cum,Last),
-	Target is 63, % Finds optimal solution
-	%Target is Last div 4, % =:= 61
+	%Target is 63, % Finds optimal solution
+	Target is floor(Last / 4), % =:= 61
 	fd_set_vector_max(Last), % To enable enough solutions
 	fd_domain([A,B,C],1,26),
 	fd_all_different([A,B,C]),
@@ -64,7 +72,7 @@ partition(Phone,A,B,C,Score) :-
 	fd_minimize(fd_labeling([A,B,C,X,Y,Z,Score]), Score).
 
 show(A,B,C,Score) :-
-	format(`Score = %d: A-%c, %c-%c, %c-%c, %c-Z~n`,
+	format(`Score = ~d: A-%c, %c-%c, %c-%c, %c-Z~n`,
 		[Score,64+A-1,64+A,64+B-1,64+B,64+C-1,64+C]).
 
 test(A,B,C,Score) :-
@@ -77,6 +85,7 @@ go :-
 	show(A,B,C,Score),
 	% Continue until all minimization solutions are found:
 	fail; true.
+	%fail; halt.
 
 :- initialization(go).
 
