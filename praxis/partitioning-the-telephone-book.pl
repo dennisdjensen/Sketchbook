@@ -49,7 +49,8 @@ cumulative([X|Xs],Acc,[Y|Ys]) :-
 partition(Phone,A,B,C,Score) :-
 	cumulative(Phone,Phone_cum),
 	nth(26,Phone_cum,Last),
-	Target is Last div 4,
+	Target is 63, % Finds optimal solution
+	%Target is Last div 4, % =:= 61
 	fd_set_vector_max(Last), % To enable enough solutions
 	fd_domain([A,B,C],1,26),
 	fd_all_different([A,B,C]),
