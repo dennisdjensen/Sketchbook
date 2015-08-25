@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # Copyright 2015 Dennis Decker Jensen
 
-# Collecting ranges of sets
+# Collecting sets of ranges sets
 # http://programmingpraxis.com/2015/08/25/collect-sets-of-ranges/
+
 # It's a classic problem that Jackson suggested a simple solution for.
 # You structure the control flow after the data,
 # i.e. one outer loop for the break points,
