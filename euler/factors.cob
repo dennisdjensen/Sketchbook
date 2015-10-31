@@ -40,8 +40,8 @@
        factors.
            perform one-factor until function mod(n, i) is not zero.
        one-factor.
-           display "i:" space i
-           display "n:" space n
+      *    display "i:" space i
+      *    display "n:" space n
            move i to factor
            display function trim(factor leading)
                    space with no advancing
