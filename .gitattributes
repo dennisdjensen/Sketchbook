@@ -1,5 +1,6 @@
 *.p6 linguist-language=Perl6
 *.awk linguist-language=AWK
+*.rex linguist-language=Rexx
 *.cbl linguist-language=Cobol
 *.cob linguist-language=Cobol
 *.f08 linguist-language=Fortran
