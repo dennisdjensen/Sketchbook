@@ -65,5 +65,5 @@ curious(N) :-
 
 :- pred factorial_digit(char::in, int::in, int::out) is semidet.
 factorial_digit(Chardigit, Sum, Fac + Sum) :-
-	fac(char.to_int(Chardigit) - 48, Fac).
+	fac(det_decimal_digit_to_int(Chardigit), Fac).
 
