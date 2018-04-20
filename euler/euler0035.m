@@ -24,9 +24,9 @@
 
 main(!IO) :-
 	print("Primes < 100: ", !IO),
-	print_line(tree_bitset.to_sorted_list(primes_upto(100)) `with_type` list(int), !IO),
+	print_line(to_sorted_list(primes_upto(100)) `with_type` list(int), !IO),
 	print("Circular primes < 100: ", !IO),
-	print_line(tree_bitset.to_sorted_list(circular_primes_upto(100)) `with_type` list(int), !IO),
+	print_line(to_sorted_list(circular_primes_upto(100)) `with_type` list(int), !IO),
 	print("No of circular primes < 1,000,000: ", !IO),
 	write_int(count(circular_primes_upto(1_000_000)), !IO),
 	nl(!IO).
@@ -48,9 +48,6 @@ circular_primes_upto(High, Circular_primes) :-
 				In = Out
 			)
 	), Primes, tree_bitset.init, Circular_primes).
-
-%:- pred circular_prime(int::int, tree_bitset(int)::in, tree_bitset(int)::out) is det.
-%circular_prime(Prime, In, Out) :-
 
 :- func primes_upto(int) = tree_bitset(int).
 primes_upto(High) = Primes :- primes_upto(High, Primes).
@@ -78,7 +75,7 @@ remove_multipla_between(Low, High, Step, !Candidates) :-
 		!:Candidates = !.Candidates.
 
 :- func circle(int) = tree_bitset(int).
-circle(N) = tree_bitset.insert_list(tree_bitset.init, set.to_sorted_list(set.map(string.det_to_int, circle_string(int_to_string(N))))).
+circle(N) = tree_bitset.insert_list(tree_bitset.init, to_sorted_list(map(det_to_int, circle_string(int_to_string(N))))).
 
 :- func circle_string(string) = set(string).
 circle_string(S) = Circle :- circle_string(S, length(S), set.init, Circle).
