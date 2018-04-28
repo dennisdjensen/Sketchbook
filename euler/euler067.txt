@@ -1,0 +1,2 @@
+See euler018.cob, which does the same calculation for a triangle
+of any size, whether 15 or 100. It can handle sizes up to 3000.
