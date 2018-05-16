@@ -13,10 +13,10 @@
 // Zero base indexed bitset function-like macros.
 #define bitword (8 * sizeof(unsigned char) * sizeof(unsigned int))
 #define bitidx(i) ((i) / bitword)
-#define getbit(set, i) ((set[bitidx(i)] >>        ((bitword - 1) & i)) & 1)
-#define clrbit(set, i)  (set[bitidx(i)] &= ~(1 << ((bitword - 1) & i)))
-#define setbit(set, i)  (set[bitidx(i)] |=  (1 << ((bitword - 1) & i)))
-#define invbit(set, i)  (set[bitidx(i)] ^=  (1 << ((bitword - 1) & i)))
+#define getbit(set, i) ((set[bitidx(i)] >>        ((bitword - 1) & (i))) & 1)
+#define clrbit(set, i)  (set[bitidx(i)] &= ~(1 << ((bitword - 1) & (i))))
+#define setbit(set, i)  (set[bitidx(i)] |=  (1 << ((bitword - 1) & (i))))
+#define invbit(set, i)  (set[bitidx(i)] ^=  (1 << ((bitword - 1) & (i))))
 
 enum constants
 {
