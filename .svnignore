@@ -2,3 +2,4 @@ bin
 *.err
 *.mh
 Mercury
+.DS_Store

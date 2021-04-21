@@ -1,8 +1,10 @@
+*.pl linguist-language=Prolog
 *.p6 linguist-language=Perl
 *.awk linguist-language=AWK
 *.rex linguist-language=Rexx
 *.cbl linguist-language=Cobol
 *.cob linguist-language=Cobol
+*.f linguist-language=Fortran
 *.f08 linguist-language=Fortran
 *.for linguist-language=Fortran
 *.py linguist-language=Python
