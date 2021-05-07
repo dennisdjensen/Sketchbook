@@ -7,6 +7,8 @@
 *.f linguist-language=Fortran
 *.f08 linguist-language=Fortran
 *.for linguist-language=Fortran
+*.f90 linguist-language=Fortran
 *.py linguist-language=Python
 *.m linguist-language=Mercury
 *.c linguist-language=C
+*.scm linguist-language=Scheme
