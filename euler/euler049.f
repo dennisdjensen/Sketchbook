@@ -19,7 +19,7 @@ C            PRINT *,I,PRIME(I),J,PRIME(J),K,PRIME(K)
                DO 15 L=1,4
                   IDIGITS(NDIG(I,L))=IDIGITS(NDIG(I,L))+1
                   IDIGITS(NDIG(J,L))=IDIGITS(NDIG(J,L))+1
-  15              IDIGITS(NDIG(J,L))=IDIGITS(NDIG(J,L))+1
+  15              IDIGITS(NDIG(K,L))=IDIGITS(NDIG(K,L))+1
 C               PRINT *,I,J,K,IDIGITS
                DO 16 L=1,9
                   IF (MOD(IDIGITS(L),3).NE.0) GOTO 20
