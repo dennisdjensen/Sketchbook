@@ -6,5 +6,8 @@ tests, trials, or just plain fun. Remember fun?
 "All programming languages are write-only." -- Chuck Moore
 
  * Euler: <http://projecteuler.net>.
+ * Everyday Calculus
+ * Experiments: Short texts of my own
  * Programming Praxis: <http://programmingpraxis.com>.
-
+ * Skype & Telescope: The BASIC programs 1984-2002
+   <https://skyandtelescope.org/astronomy-resources/basic-programs-from-sky-telescope/>
