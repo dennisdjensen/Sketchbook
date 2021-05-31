@@ -9,7 +9,7 @@ C Tectonics: gfortran -ffixed-form -c primesieve.f90
          DO 10 I=1,NHIGH
    10       SIEVE(I)=.TRUE.
          SIEVE(1)=.FALSE.
-         DO 30 I=2,NHIGH
+         DO 30 I=2,INT(SQRT(NHIGH))
             IF (SIEVE(I)) THEN
                DO 20 J=I+I,NHIGH,I
    20             SIEVE(J)=.FALSE. 

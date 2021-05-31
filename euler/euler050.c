@@ -3,6 +3,7 @@
 // Purpose: Consecutive prime sum
 // Tectonics: cc -o euler050 euler050.c
 
+#include <math.h>
 #include <stdio.h>
 //#include <string.h>
 
@@ -22,6 +23,7 @@ main(int argc, char *argv[])
 	unsigned long sieve[mxsieve], primes[mx], arr[mx+1];
 	unsigned long *cumarr = arr+1;
 	unsigned long i, j, k, l, m, n, mxprimes, sum, mxsofar;
+	unsigned long sqrtmx;
 
 	return 0;
 	printf("-----\n");
@@ -36,7 +38,9 @@ main(int argc, char *argv[])
 	for (i=0; i<mxsieve; ++i) sieve[i]=-1;
 	clrbit(sieve,0);
 	clrbit(sieve,1);
-	for (n=2; n<mx; ++n)
+
+	sqrtmx = (unsigned long)sqrt((double)mx);
+	for (n=2; n<sqrtmx; ++n)
 		if (getbit(sieve,n))
 			for (m=n+n; m<mx; m+=n)
 				clrbit(sieve,m);
