@@ -1,5 +1,5 @@
 // Copyright 2021 Dennis Blondell Decker
-// Date: 30 May 2021
+// Date: 12 June 2021
 // Purpose: Consecutive prime sum
 // Tectonics: cc -o euler050 euler050.c
 
