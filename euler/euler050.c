@@ -5,7 +5,8 @@
 
 #include <math.h>
 #include <stdio.h>
-//#include <string.h>
+#include <stdlib.h>
+#include <string.h>
 
 // Zero base indexed bitset function-like macros.
 #define bitword (8 * sizeof(unsigned char) * sizeof(unsigned int))
@@ -15,31 +16,27 @@
 #define setbit(set, i)  (set[bitidx(i)] |=  (1 << ((bitword - 1) & (i))))
 #define invbit(set, i)  (set[bitidx(i)] ^=  (1 << ((bitword - 1) & (i))))
 
+typedef unsigned long ulong;
+
 int
 main(int argc, char *argv[])
 {
-	const unsigned long mx = 1000000;
-	const unsigned long mxsieve = bitidx(mx)+1;
-	unsigned long sieve[mxsieve], primes[mx], arr[mx+1];
-	unsigned long *cumarr = arr+1;
-	unsigned long i, j, k, l, m, n, mxprimes, sum, mxsofar;
-	unsigned long sqrtmx;
+	const ulong mx = 1000000;
+	const ulong mxsieve = bitidx(mx)+1;
+	ulong sieve[mxsieve];
+	ulong *primes, *cumarr, *arr;
+	ulong i, j, k, l, m, n, mxprimes, sum, mxsofar;
+	ulong sqrtmx;
 
-	return 0;
-	printf("-----\n");
-	for (i=0; i<mx; ++i) primes[i]=arr[i]=0;
-	arr[mx]=0;
-	//memset(primes,0,mx*sizeof(unsigned long));
-	//memset(arr,0,(mx+1)*sizeof(unsigned long));
+	primes=calloc(mx,sizeof(ulong));
+	arr=calloc(mx+1,sizeof(ulong));
+	cumarr=arr+1;
 
-	printf("-----\n");
 	// Sieve of Erasthothene for 0..mx
-//	memset(sieve,-1,mxsieve*sizeof(unsigned));
-	for (i=0; i<mxsieve; ++i) sieve[i]=-1;
+	memset(sieve,-1,mxsieve*sizeof(ulong));
 	clrbit(sieve,0);
 	clrbit(sieve,1);
-
-	sqrtmx = (unsigned long)sqrt((double)mx);
+	sqrtmx = (ulong)sqrt((double)mx);
 	for (n=2; n<sqrtmx; ++n)
 		if (getbit(sieve,n))
 			for (m=n+n; m<mx; m+=n)
@@ -57,34 +54,24 @@ main(int argc, char *argv[])
 	//	printf(" %d", primes[i]);
 	//printf("\n");
 
-
 	// treat this problem like a maximum sum subarray problem.
 	// Bentley's quadratic variation of Kandane's Algorithm.
 	// Instead of the maximum sum, we find the maximum length.
 
 	cumarr[-1]=0;
 	for (i=0; i<mxprimes; ++i)
-	{
-		//printf("%d %d %d\n",i-1,*(cumarr+i-1),primes[i]);
 		cumarr[i]=*(cumarr+i-1)+primes[i];
-	}
-
-	//for (i=0; i<mxprimes; ++i)
-	//	printf("%6lu %6lu %6lu %6lu\n",
-	//		i,primes[i],cumarr[i],*(cumarr+i-1));
 
 	mxsofar=k=l=0;
 	for (i=0; i<mxprimes; ++i)
 		for (j=i; j<mxprimes; ++j)
 			if ((sum=cumarr[j]-*(cumarr+i-1))<mx)
-			{
-				//printf("i=%lu,j=%lu,sum=%lu\n",i,j,sum);
 				if (getbit(sieve,sum))
 					if ((l-k)<(j-i))
 						k=i,l=j,mxsofar=sum;
-			}
-	printf("Sum: %6lu with %6lu primes:",mxsofar,l-k+1);
-	for (i=k; i<=l; ++i) printf(" %6lu", i);
-	printf("\n");
+
+	printf("Sum: %6lu with %6lu primes.\n",mxsofar,l-k+1);
+	//for (i=k; i<=l; ++i) printf(" %6lu", i);
+	//printf("\n");
 }
 
